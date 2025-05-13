@@ -9,6 +9,11 @@ import com.example.terminalMarittimo.modelli.autistaDAO;
 import com.example.terminalMarittimo.modelli.camionDAO;
 import com.example.terminalMarittimo.modelli.clienteDAO;
 import com.example.terminalMarittimo.modelli.fornitoreDAO;
+import com.example.terminalMarittimo.modelli.naveDAO;
+import com.example.terminalMarittimo.modelli.portoDAO;
+import com.example.terminalMarittimo.modelli.ritiroDAO;
+import com.example.terminalMarittimo.modelli.utenteDAO;
+import com.example.terminalMarittimo.modelli.viaggioDAO;
 
 @RestController
 @RequestMapping("/elimina")
@@ -41,4 +46,40 @@ public class elimina {
         fornitore.cancella(ID);
         return "Fornitore con ID " + ID + " eliminato!";
     }
+
+    naveDAO nave = new naveDAO();
+    @GetMapping("/elimina")
+    public String eliminaNave(@RequestParam int ID) {
+        nave.cancella(ID);
+        return "Nave con ID " + ID + " eliminata!";
+    }
+
+    portoDAO porto = new portoDAO();
+    @GetMapping("/elimina")
+    public String eliminaPorto(@RequestParam int ID) {
+        porto.cancella(ID);
+        return "Porto con ID " + ID + " eliminato!";
+    }
+
+    utenteDAO utenteDAO = new utenteDAO();
+    @GetMapping("/elimina")
+    public String eliminaUtente(@RequestParam int ID) {
+        utenteDAO.cancella(ID);
+        return "Utente con ID " + ID + " eliminato!";
+    }
+
+    ritiroDAO ritiro = new ritiroDAO();
+    @GetMapping("/elimina")
+    public String eliminaRitiro(@RequestParam int ID) {
+        ritiro.cancella(ID);
+        return "Ritiro con ID " + ID + " eliminato!";
+    }
+
+    viaggioDAO viaggio = new viaggioDAO();
+    @GetMapping("/elimina")
+    public String eliminaViaggio(@RequestParam int ID) {
+        viaggio.cancella(ID);
+        return "Viaggio con ID " + ID + " eliminato!";
+    }
+
 }
