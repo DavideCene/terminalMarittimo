@@ -7,19 +7,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.terminalMarittimo.classiEntita.autista;
+import com.example.terminalMarittimo.classiEntita.buono;
 import com.example.terminalMarittimo.classiEntita.camion;
 import com.example.terminalMarittimo.classiEntita.cliente;
 import com.example.terminalMarittimo.classiEntita.fornitore;
 import com.example.terminalMarittimo.classiEntita.nave;
+import com.example.terminalMarittimo.classiEntita.polizza;
 import com.example.terminalMarittimo.classiEntita.porto;
 import com.example.terminalMarittimo.classiEntita.ritiro;
 import com.example.terminalMarittimo.classiEntita.utente;
 import com.example.terminalMarittimo.classiEntita.viaggio;
 import com.example.terminalMarittimo.modelli.autistaDAO;
+import com.example.terminalMarittimo.modelli.buonoDAO;
 import com.example.terminalMarittimo.modelli.camionDAO;
 import com.example.terminalMarittimo.modelli.clienteDAO;
 import com.example.terminalMarittimo.modelli.fornitoreDAO;
 import com.example.terminalMarittimo.modelli.naveDAO;
+import com.example.terminalMarittimo.modelli.polizzaDAO;
 import com.example.terminalMarittimo.modelli.portoDAO;
 import com.example.terminalMarittimo.modelli.ritiroDAO;
 import com.example.terminalMarittimo.modelli.utenteDAO;
@@ -84,5 +88,17 @@ public class visualizza {
     @GetMapping("/visualizza")
     public List<viaggio> visualizzaViaggi() {
         return viaggio.visualizza();
+    }
+
+    polizzaDAO polizza = new polizzaDAO();
+    @GetMapping("/visualizza")
+    public List<polizza> visualizzaPolizze() {
+        return polizza.visualizza();
+    }
+
+    buonoDAO buono = new buonoDAO();
+    @GetMapping("/visualizza")
+    public List<buono> visualizzaBuoni() {
+        return buono.visualizza();
     }
 }

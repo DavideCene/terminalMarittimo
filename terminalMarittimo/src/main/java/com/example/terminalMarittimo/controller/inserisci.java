@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.terminalMarittimo.modelli.autistaDAO;
+import com.example.terminalMarittimo.modelli.buonoDAO;
 import com.example.terminalMarittimo.modelli.camionDAO;
 import com.example.terminalMarittimo.modelli.clienteDAO;
 import com.example.terminalMarittimo.modelli.fornitoreDAO;
 import com.example.terminalMarittimo.modelli.naveDAO;
+import com.example.terminalMarittimo.modelli.polizzaDAO;
 import com.example.terminalMarittimo.modelli.portoDAO;
 import com.example.terminalMarittimo.modelli.ritiroDAO;
 import com.example.terminalMarittimo.modelli.utenteDAO;
@@ -83,5 +85,19 @@ public class inserisci {
     public String inserisciViaggio(@RequestParam int ID,@RequestParam String dataArrivo,@RequestParam String dataPartenza,@RequestParam int fornitoreID,@RequestParam int naveID,@RequestParam int portoArrivoID,@RequestParam int portoPartenzaID) {
         viaggio.inserisci(ID, dataArrivo, dataPartenza, fornitoreID, naveID, portoArrivoID, portoPartenzaID);
         return "Viaggio con ID " + ID + " inserito!";
+    }
+
+    polizzaDAO polizza = new polizzaDAO();
+    @GetMapping("/inserisci")
+    public String inserisciPolizza(@RequestParam int ID,@RequestParam int clienteID,@RequestParam String data,@RequestParam String merce,@RequestParam double peso,@RequestParam int viaggioID) {
+        polizza.inserisci(ID, clienteID, data, merce, peso, viaggioID);
+        return "Polizza con ID " + ID + " inserita!";
+    }
+
+    buonoDAO buono = new buonoDAO();
+        @GetMapping("/inserisci")
+    public String inserisciBuono(@RequestParam int ID,@RequestParam String data,@RequestParam double peso,@RequestParam int polizzaID) {
+        buono.inserisci(ID, data, peso, polizzaID);
+        return "Buono con ID " + ID + " inserito!";
     }
 }

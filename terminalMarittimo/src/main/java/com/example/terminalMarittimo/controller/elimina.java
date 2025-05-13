@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.terminalMarittimo.modelli.autistaDAO;
+import com.example.terminalMarittimo.modelli.buonoDAO;
 import com.example.terminalMarittimo.modelli.camionDAO;
 import com.example.terminalMarittimo.modelli.clienteDAO;
 import com.example.terminalMarittimo.modelli.fornitoreDAO;
 import com.example.terminalMarittimo.modelli.naveDAO;
+import com.example.terminalMarittimo.modelli.polizzaDAO;
 import com.example.terminalMarittimo.modelli.portoDAO;
 import com.example.terminalMarittimo.modelli.ritiroDAO;
 import com.example.terminalMarittimo.modelli.utenteDAO;
@@ -82,4 +84,17 @@ public class elimina {
         return "Viaggio con ID " + ID + " eliminato!";
     }
 
+    polizzaDAO polizza = new polizzaDAO();
+    @GetMapping("/elimina")
+    public String eliminaPolizza(@RequestParam int ID) {
+        polizza.cancella(ID);
+        return "Polizza con ID " + ID + " eliminata!";
+    }
+
+    buonoDAO buono = new buonoDAO();
+    @GetMapping("/elimina")
+    public String eliminaBuono(@RequestParam int ID) {
+        buono.cancella(ID);
+        return "Buono con ID " + ID + " eliminato!";
+    }
 }
