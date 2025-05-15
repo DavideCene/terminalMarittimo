@@ -21,12 +21,11 @@ public class utenteDAO {
     }
 
     // Inserimento utente
-    public void inserisci(int ID, String username, String passwordVal) {
-        String sql = "INSERT INTO utente (ID, username, password) VALUES (?, ?, ?)";
+    public void inserisci(String username, String passwordVal) {
+        String sql = "INSERT INTO utente (username, password) VALUES (?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setString(2, username);
-            stmt.setString(3, passwordVal);
+            stmt.setString(1, username);
+            stmt.setString(2, passwordVal);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

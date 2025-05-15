@@ -39,65 +39,65 @@ public class inserisci {
 
 
     clienteDAO cliente = new clienteDAO();
-    @GetMapping("/inserisci")
-    public String inserisciCliente(@RequestParam int ID, @RequestParam String nome, @RequestParam String cognome,@RequestParam String email, @RequestParam String telefono,@RequestParam String password, @RequestParam String indirizzo) {
-        cliente.inserisci(ID, nome, cognome, email, telefono, password, indirizzo);
-        return "Cliente con ID " + ID + " inserito!";
+    @GetMapping("/cliente")
+    public String inserisciCliente(@RequestParam String nome, @RequestParam String cognome,@RequestParam String email, @RequestParam String telefono,@RequestParam String password, @RequestParam String indirizzo) {
+        cliente.inserisci(nome, cognome, email, telefono, password, indirizzo);
+        return "Cliente inserito!";
     }
 
     fornitoreDAO fornitore = new fornitoreDAO();
-    @GetMapping("/inserisci")
-    public String inserisciFornitore(@RequestParam int ID, @RequestParam String nome, @RequestParam String cognome,@RequestParam String email, @RequestParam String telefono, @RequestParam String password) {
-        fornitore.inserisci(ID, nome, cognome, email, telefono, password);
-        return "Fornitore con ID " + ID + " inserito!";
+    @GetMapping("/fornitore")
+    public String inserisciFornitore(@RequestParam String nome, @RequestParam String cognome,@RequestParam String email, @RequestParam String telefono, @RequestParam String password) {
+        fornitore.inserisci(nome, cognome, email, telefono, password);
+        return "Fornitore inserito!";
     }
 
     naveDAO nave = new naveDAO();
-    @GetMapping("/inserisci")
-    public String inserisciNave(@RequestParam int ID, @RequestParam String tipologia, @RequestParam String nome) {
-        nave.inserisci(ID, tipologia, nome);
-        return "Nave con ID " + ID + " inserita!";
+    @GetMapping("/nave")
+    public String inserisciNave(@RequestParam String tipologia, @RequestParam String nome) {
+        nave.inserisci(tipologia, nome);
+        return "Nave inserita!";
     }
 
     portoDAO porto = new portoDAO();
-   @GetMapping("/inserisci")
-    public String inserisciPorto(@RequestParam int ID, @RequestParam String nome,@RequestParam String rotta, @RequestParam String nazione) {
-        porto.inserisci(ID, nome, rotta, nazione);
-        return "Porto con ID " + ID + " inserito!";
+   @GetMapping("/porto")
+    public String inserisciPorto(@RequestParam String nome,@RequestParam String rotta, @RequestParam String nazione) {
+        porto.inserisci(nome, rotta, nazione);
+        return "Porto inserito!";
     }
 
     utenteDAO utenteDAO = new utenteDAO();
-    @GetMapping("/inserisci")
-    public String inserisciUtente(@RequestParam int ID,@RequestParam String username,@RequestParam String password) {
-        utenteDAO.inserisci(ID, username, password);
-        return "Utente con ID " + ID + " inserito!";
+    @GetMapping("/utente")
+    public String inserisciUtente(@RequestParam String username,@RequestParam String password) {
+        utenteDAO.inserisci(username, password);
+        return "Utente con inserito!";
     }
 
     ritiroDAO ritiro = new ritiroDAO();
-    @GetMapping("/inserisci")
-    public String inserisciRitiro(@RequestParam int ID,@RequestParam String targa,@RequestParam int autistaID,@RequestParam double peso,@RequestParam String data) {
-        ritiro.inserisci(ID, targa, autistaID, peso, data);
-        return "Ritiro con ID " + ID + " inserito!";
+    @GetMapping("/ritiro")
+    public String inserisciRitiro(@RequestParam String targa,@RequestParam int autistaID,@RequestParam double peso,@RequestParam String data) {
+        ritiro.inserisci(targa, autistaID, peso, data);
+        return "Ritiro inserito!";
     }
 
     viaggioDAO viaggio = new viaggioDAO();
-    @GetMapping("/inserisci")
-    public String inserisciViaggio(@RequestParam int ID,@RequestParam String dataArrivo,@RequestParam String dataPartenza,@RequestParam int fornitoreID,@RequestParam int naveID,@RequestParam int portoArrivoID,@RequestParam int portoPartenzaID) {
-        viaggio.inserisci(ID, dataArrivo, dataPartenza, fornitoreID, naveID, portoArrivoID, portoPartenzaID);
-        return "Viaggio con ID " + ID + " inserito!";
+    @GetMapping("/viaggio")
+    public String inserisciViaggio(@RequestParam String dataArrivo,@RequestParam String dataPartenza,@RequestParam int fornitoreID,@RequestParam int naveID,@RequestParam int portoArrivoID,@RequestParam int portoPartenzaID) {
+        viaggio.inserisci(dataArrivo, dataPartenza, fornitoreID, naveID, portoArrivoID, portoPartenzaID);
+        return "Viaggio inserito!";
     }
 
     polizzaDAO polizza = new polizzaDAO();
-    @GetMapping("/inserisci")
-    public String inserisciPolizza(@RequestParam int ID,@RequestParam int clienteID,@RequestParam String data,@RequestParam String merce,@RequestParam double peso,@RequestParam int viaggioID) {
-        polizza.inserisci(ID, clienteID, data, merce, peso, viaggioID);
-        return "Polizza con ID " + ID + " inserita!";
+    @GetMapping("/polizza")
+    public String inserisciPolizza(@RequestParam int clienteID,@RequestParam String data,@RequestParam String merce,@RequestParam double peso,@RequestParam int viaggioID) {
+        polizza.inserisci(clienteID, data, merce, peso, viaggioID);
+        return "Polizza inserita!";
     }
 
     buonoDAO buono = new buonoDAO();
-        @GetMapping("/inserisci")
-    public String inserisciBuono(@RequestParam int ID,@RequestParam String data,@RequestParam double peso,@RequestParam int polizzaID) {
-        buono.inserisci(ID, data, peso, polizzaID);
-        return "Buono con ID " + ID + " inserito!";
+    @GetMapping("/buono")
+    public String inserisciBuono(@RequestParam String data,@RequestParam double peso,@RequestParam int polizzaID) {
+        buono.inserisci(data, peso, polizzaID);
+        return "Buono con inserito!";
     }
 }

@@ -24,18 +24,17 @@ public class viaggioDAO {
     }
 
     // Inserimento viaggio
-    public void inserisci(int ID, String dataArrivo, String dataPartenza,
+    public void inserisci(String dataArrivo, String dataPartenza,
                           int fornitoreID, int naveID, int portoArrivoID, int portoPartenzaID) {
-        String sql = "INSERT INTO viaggio (ID, data_arrivo, data_partenza, fornitore_id, nave_id, porto_arrivo_id, porto_partenza_id) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO viaggio (data_arrivo, data_partenza, fornitore_id, nave_id, porto_arrivo_id, porto_partenza_id) " +
+                     "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setString(2, dataArrivo);
-            stmt.setString(3, dataPartenza);
-            stmt.setInt(4, fornitoreID);
-            stmt.setInt(5, naveID);
-            stmt.setInt(6, portoArrivoID);
-            stmt.setInt(7, portoPartenzaID);
+            stmt.setString(1, dataArrivo);
+            stmt.setString(2, dataPartenza);
+            stmt.setInt(3, fornitoreID);
+            stmt.setInt(4, naveID);
+            stmt.setInt(5, portoArrivoID);
+            stmt.setInt(6, portoPartenzaID);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

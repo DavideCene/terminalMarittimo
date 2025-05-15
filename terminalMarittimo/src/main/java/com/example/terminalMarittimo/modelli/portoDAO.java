@@ -21,13 +21,12 @@ public class portoDAO {
     }
 
     // Inserimento porto
-    public void inserisci(int ID, String nome, String rotta, String nazione) {
-        String sql = "INSERT INTO porto (ID, nome, rotta, nazione) VALUES (?, ?, ?, ?)";
+    public void inserisci(String nome, String rotta, String nazione) {
+        String sql = "INSERT INTO porto (nome, rotta, nazione) VALUES (?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setString(2, nome);
-            stmt.setString(3, rotta);
-            stmt.setString(4, nazione);
+            stmt.setString(1, nome);
+            stmt.setString(2, rotta);
+            stmt.setString(3, nazione);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

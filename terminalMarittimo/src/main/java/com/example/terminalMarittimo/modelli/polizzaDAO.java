@@ -23,15 +23,14 @@ public class polizzaDAO {
     }
 
     // Inserimento
-    public void inserisci(int ID, int clienteID, String data, String merce, double peso, int viaggioID) {
-        String sql = "INSERT INTO polizza (ID, cliente_id, data, merce, peso, viaggio_id) VALUES (?, ?, ?, ?, ?, ?)";
+    public void inserisci(int clienteID, String data, String merce, double peso, int viaggioID) {
+        String sql = "INSERT INTO polizza (cliente_id, data, merce, peso, viaggio_id) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setInt(2, clienteID);
-            stmt.setString(3, data);
-            stmt.setString(4, merce);
-            stmt.setDouble(5, peso);
-            stmt.setInt(6, viaggioID);
+            stmt.setInt(1, clienteID);
+            stmt.setString(2, data);
+            stmt.setString(3, merce);
+            stmt.setDouble(4, peso);
+            stmt.setInt(5, viaggioID);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

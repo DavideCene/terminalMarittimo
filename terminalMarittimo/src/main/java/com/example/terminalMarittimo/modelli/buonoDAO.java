@@ -22,13 +22,12 @@ public class buonoDAO {
     }
 
     // Inserimento buono
-    public void inserisci(int ID, String data, double peso, int polizzaID) {
-        String sql = "INSERT INTO buono (ID, data, peso, polizza_id) VALUES (?, ?, ?, ?)";
+    public void inserisci(String data, double peso, int polizzaID) {
+        String sql = "INSERT INTO buono (data, peso, polizza_id) VALUES (?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setString(2, data);
-            stmt.setDouble(3, peso);
-            stmt.setInt(4, polizzaID);
+            stmt.setString(1, data);
+            stmt.setDouble(2, peso);
+            stmt.setInt(3, polizzaID);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

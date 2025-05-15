@@ -60,4 +60,24 @@ public class autistaDAO {
         }
 
     }  
+
+    public int getIDLogin(String username, String pass) {
+        try (Connection conn = DriverManager.getConnection(url, user,password)) 
+        {
+            String sql = "SELECT ID FROM autista WHERE password = ? AND username = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, pass);
+            stmt.setString(2, username);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt("ID");
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

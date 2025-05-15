@@ -21,12 +21,11 @@ public class naveDAO {
     }
 
     // Inserisci una nuova nave
-    public void inserisci(int ID, String tipologia, String nome) {
-        String sql = "INSERT INTO nave (ID, tipologia, nome) VALUES (?, ?, ?)";
+    public void inserisci(String tipologia, String nome) {
+        String sql = "INSERT INTO nave (tipologia, nome) VALUES (?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setString(2, tipologia);
-            stmt.setString(3, nome);
+            stmt.setString(1, tipologia);
+            stmt.setString(2, nome);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

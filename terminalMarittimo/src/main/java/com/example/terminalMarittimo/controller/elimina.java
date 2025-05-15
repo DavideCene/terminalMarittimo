@@ -36,63 +36,63 @@ public class elimina {
     }
 
     clienteDAO cliente = new clienteDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/cliente")
     public String eliminaCliente(@RequestParam int ID) {
         cliente.cancella(ID);
         return "Cliente con ID " + ID + " eliminato!";
     }
 
     fornitoreDAO fornitore = new fornitoreDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/fornitore")
     public String eliminaFornitore(@RequestParam int ID) {
         fornitore.cancella(ID);
         return "Fornitore con ID " + ID + " eliminato!";
     }
 
     naveDAO nave = new naveDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/nave")
     public String eliminaNave(@RequestParam int ID) {
         nave.cancella(ID);
         return "Nave con ID " + ID + " eliminata!";
     }
 
     portoDAO porto = new portoDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/porto")
     public String eliminaPorto(@RequestParam int ID) {
         porto.cancella(ID);
         return "Porto con ID " + ID + " eliminato!";
     }
 
     utenteDAO utenteDAO = new utenteDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/utente")
     public String eliminaUtente(@RequestParam int ID) {
         utenteDAO.cancella(ID);
         return "Utente con ID " + ID + " eliminato!";
     }
 
     ritiroDAO ritiro = new ritiroDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/ritiro")
     public String eliminaRitiro(@RequestParam int ID) {
         ritiro.cancella(ID);
         return "Ritiro con ID " + ID + " eliminato!";
     }
 
     viaggioDAO viaggio = new viaggioDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/viaggio")
     public String eliminaViaggio(@RequestParam int ID) {
         viaggio.cancella(ID);
         return "Viaggio con ID " + ID + " eliminato!";
     }
 
     polizzaDAO polizza = new polizzaDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/polizza")
     public String eliminaPolizza(@RequestParam int ID) {
         polizza.cancella(ID);
         return "Polizza con ID " + ID + " eliminata!";
     }
 
     buonoDAO buono = new buonoDAO();
-    @GetMapping("/elimina")
+    @GetMapping("/buono")
     public String eliminaBuono(@RequestParam int ID) {
         buono.cancella(ID);
         return "Buono con ID " + ID + " eliminato!";

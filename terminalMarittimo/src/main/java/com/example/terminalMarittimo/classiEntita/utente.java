@@ -3,7 +3,7 @@ package com.example.terminalMarittimo.classiEntita;
 public class utente {
     private int ID;
     private String username;
-    private String password;
+    private String ruolo;
 
     public int getID() {
         return this.ID;
@@ -21,17 +21,17 @@ public class utente {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRuolo() {
+        return ruolo;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRuolo(String ruolo) {
+        this.ruolo = ruolo;
     }
 
-    public utente(int ID, String password, String username) {
+    public utente(int ID,String username,String ruolo) {
         this.ID = ID;
-        this.password = password;
+        this.ruolo = ruolo;
         this.username = username;
     }
 }

@@ -21,15 +21,14 @@ public class fornitoreDAO {
     }
 
     // Metodo per inserire un fornitore
-    public void inserisci(int ID, String nome, String cognome, String email, String telefono, String password) {
-        String sql = "INSERT INTO fornitore (ID, nome, cognome, email, telefono, password) VALUES (?, ?, ?, ?, ?, ?)";
+    public void inserisci(String nome, String cognome, String email, String telefono, String password) {
+        String sql = "INSERT INTO fornitore (nome, cognome, email, telefono, password) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setString(2, nome);
-            stmt.setString(3, cognome);
-            stmt.setString(4, email);
-            stmt.setString(5, telefono);
-            stmt.setString(6, password);
+            stmt.setString(1, nome);
+            stmt.setString(2, cognome);
+            stmt.setString(3, email);
+            stmt.setString(4, telefono);
+            stmt.setString(5, password);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,6 +65,26 @@ public class fornitoreDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public int getIDLogin(String username, String pass) {
+        try (Connection conn = DriverManager.getConnection(url, user,password)) 
+        {
+            String sql = "SELECT ID FROM fornitore WHERE password = ? AND email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, pass);
+            stmt.setString(2, username);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt("ID");
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
         }
     }
 }

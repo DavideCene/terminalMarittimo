@@ -23,14 +23,13 @@ public class ritiroDAO {
     }
 
     // Inserisci nuovo ritiro
-    public void inserisci(int ID, String targaCamion, int idAutista, double peso, String data) {
-        String sql = "INSERT INTO ritiro (ID, camion_targa, autista_id, peso, data) VALUES (?, ?, ?, ?, ?)";
+    public void inserisci(String targaCamion, int idAutista, double peso, String data) {
+        String sql = "INSERT INTO ritiro (camion_targa, autista_id, peso, data) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
-            stmt.setString(2, targaCamion);
-            stmt.setInt(3, idAutista);
-            stmt.setDouble(4, peso);
-            stmt.setString(5, data);
+            stmt.setString(1, targaCamion);
+            stmt.setInt(2, idAutista);
+            stmt.setDouble(3, peso);
+            stmt.setString(4, data);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -49,55 +49,55 @@ public class visualizza {
     }
 
     clienteDAO cliente = new clienteDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/cliente")
     public List<cliente> visualizzaClienti() {
         return cliente.visualizza();
     }
 
     fornitoreDAO fornitore = new fornitoreDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/fornitore")
     public List<fornitore> visualizzaFornitori() {
         return fornitore.visualizza();
     }
 
     naveDAO nave = new naveDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/nave")
     public List<nave> visualizzaNavi() {
         return nave.visualizza();
     }
 
     portoDAO porto = new portoDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/porto")
     public List<porto> visualizzaPorti() {
         return porto.visualizza();
     }
 
     utenteDAO utenteDAO = new utenteDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/utente")
     public List<utente> visualizzaUtenti() {
         return utenteDAO.visualizza();
     }
 
     ritiroDAO ritiro = new ritiroDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/ritiro")
     public List<ritiro> visualizzaRitiri() {
         return ritiro.visualizza();
     }
 
     viaggioDAO viaggio = new viaggioDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/viaggio")
     public List<viaggio> visualizzaViaggi() {
         return viaggio.visualizza();
     }
 
     polizzaDAO polizza = new polizzaDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/polizza")
     public List<polizza> visualizzaPolizze() {
         return polizza.visualizza();
     }
 
     buonoDAO buono = new buonoDAO();
-    @GetMapping("/visualizza")
+    @GetMapping("/buono")
     public List<buono> visualizzaBuoni() {
         return buono.visualizza();
     }
