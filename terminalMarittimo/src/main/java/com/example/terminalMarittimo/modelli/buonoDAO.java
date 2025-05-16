@@ -75,4 +75,18 @@ public class buonoDAO {
             e.printStackTrace();
         }
     }
+
+    public void inserisciRichiesta(int idCliente, int idPolizza, float peso) 
+    {
+        try (Connection conn = DriverManager.getConnection(url, user,password)) {
+            String sql = "INSERT INTO buono (cliente, polizza, peso) VALUES (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idCliente);
+            stmt.setInt(2, idPolizza);
+            stmt.setFloat(3, peso);
+            stmt.executeUpdate();   
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

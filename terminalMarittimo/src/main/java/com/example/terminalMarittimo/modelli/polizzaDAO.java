@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.terminalMarittimo.classiEntita.cliente;
 import com.example.terminalMarittimo.classiEntita.polizza;
@@ -38,8 +37,8 @@ public class polizzaDAO {
     }
 
     // Visualizzazione
-    public List<polizza> visualizza() {
-        List<polizza> lista = new ArrayList<>();
+    public ArrayList<polizza> visualizza() {
+        ArrayList<polizza> lista = new ArrayList<>();
         String sql = "SELECT p.*, c.id AS cliente_id, c.nome AS cliente_nome, c.cognome AS cliente_cognome, " +
                      "v.id AS viaggio_id, v.dataPartenza, v.dataArrivo " +
                      "FROM polizza p " +

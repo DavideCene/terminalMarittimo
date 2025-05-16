@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.terminalMarittimo.classiEntita.camion;
 
@@ -31,8 +30,8 @@ public class camionDAO {
         }
     }
 
-    public List<camion> visualizza() {
-        List<camion> lista = new ArrayList<>();
+    public ArrayList<camion> visualizza() {
+        ArrayList<camion> lista = new ArrayList<>();
         String sql = "SELECT * FROM camion";
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
