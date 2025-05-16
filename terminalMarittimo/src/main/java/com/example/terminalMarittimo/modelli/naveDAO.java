@@ -12,7 +12,7 @@ import java.util.List;
 import com.example.terminalMarittimo.classiEntita.nave;
 
 public class naveDAO {
-    private final String url = "jdbc:mysql://localhost:3306/terminal_marittimo";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 
@@ -22,10 +22,10 @@ public class naveDAO {
 
     // Inserisci una nuova nave
     public void inserisci(String tipologia, String nome) {
-        String sql = "INSERT INTO nave (tipologia, nome) VALUES (?, ?)";
+        String sql = "INSERT INTO nave (nome, tipo) VALUES (?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, tipologia);
-            stmt.setString(2, nome);
+            stmt.setString(1, nome);
+            stmt.setString(2, tipologia);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,8 +40,8 @@ public class naveDAO {
             while (rs.next()) {
                 nave n = new nave(
                     rs.getInt("ID"),
-                    rs.getString("tipologia"),
-                    rs.getString("nome")
+                    rs.getString("nome"),
+                    rs.getString("tipo")
                 );
                 lista.add(n);
             }

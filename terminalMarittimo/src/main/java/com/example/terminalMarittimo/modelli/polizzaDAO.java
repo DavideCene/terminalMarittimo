@@ -13,7 +13,7 @@ import com.example.terminalMarittimo.classiEntita.polizza;
 import com.example.terminalMarittimo.classiEntita.viaggio;
 
 public class polizzaDAO {
-    private final String url = "jdbc:mysql://localhost:3306/terminal_marittimo";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 
@@ -23,13 +23,13 @@ public class polizzaDAO {
 
     // Inserimento
     public void inserisci(int clienteID, String data, String merce, double peso, int viaggioID) {
-        String sql = "INSERT INTO polizza (cliente_id, data, merce, peso, viaggio_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO polizza (viaggio, peso, data, merce, cliente) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, clienteID);
-            stmt.setString(2, data);
-            stmt.setString(3, merce);
-            stmt.setDouble(4, peso);
-            stmt.setInt(5, viaggioID);
+            stmt.setInt(5, clienteID);
+            stmt.setString(3, data);
+            stmt.setString(4, merce);
+            stmt.setDouble(2, peso);
+            stmt.setInt(1, viaggioID);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,11 +39,11 @@ public class polizzaDAO {
     // Visualizzazione
     public ArrayList<polizza> visualizza() {
         ArrayList<polizza> lista = new ArrayList<>();
-        String sql = "SELECT p.*, c.id AS cliente_id, c.nome AS cliente_nome, c.cognome AS cliente_cognome, " +
-                     "v.id AS viaggio_id, v.dataPartenza, v.dataArrivo " +
+        String sql = "SELECT p.*, c.ID AS cliente_id, c.nome AS cliente_nome, c.cognome AS cliente_cognome, " +
+                     "v.ID AS viaggio, v.data_partenza, v.data_arrivo " +
                      "FROM polizza p " +
-                     "JOIN cliente c ON p.cliente_id = c.id " +
-                     "JOIN viaggio v ON p.viaggio_id = v.id";
+                     "JOIN cliente c ON p.cliente = c.ID " +
+                     "JOIN viaggio v ON p.viaggio = v.ID";
 
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -56,8 +56,8 @@ public class polizzaDAO {
 
                 viaggio v = new viaggio(
                         rs.getInt("viaggio_id"),
-                        rs.getString("dataArrivo"),
-                        rs.getString("dataPartenza"),
+                        rs.getString("data_arrivo"),
+                        rs.getString("data_partenza"),
                         null, null, null, null
                 );
 

@@ -14,7 +14,7 @@ import com.example.terminalMarittimo.classiEntita.camion;
 import com.example.terminalMarittimo.classiEntita.ritiro;
 
 public class ritiroDAO {
-    private final String url = "jdbc:mysql://localhost:3306/terminal_marittimo";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 
@@ -24,7 +24,7 @@ public class ritiroDAO {
 
     // Inserisci nuovo ritiro
     public void inserisci(String targaCamion, int idAutista, double peso, String data) {
-        String sql = "INSERT INTO ritiro (camion_targa, autista_id, peso, data) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO ritiro (targa, autista, peso, data) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, targaCamion);
             stmt.setInt(2, idAutista);
@@ -39,10 +39,10 @@ public class ritiroDAO {
     // Visualizza tutti i ritiri
     public List<ritiro> visualizza() {
         List<ritiro> lista = new ArrayList<>();
-        String sql = "SELECT r.ID, r.peso, r.data, c.targa, c.modello, a.id as autista_id, a.nome, a.username, a.password " +
+        String sql = "SELECT r.ID, r.peso, r.data, c.targa, c.modello, a.ID as autista_id, a.nome, a.username, a.password " +
                      "FROM ritiro r " +
-                     "JOIN camion c ON r.camion_targa = c.targa " +
-                     "JOIN autista a ON r.autista_id = a.id";
+                     "JOIN camion c ON r.targa = c.targa " +
+                     "JOIN autista a ON r.autista = a.ID";
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 camion c = new camion(rs.getString("targa"), rs.getString("modello"));

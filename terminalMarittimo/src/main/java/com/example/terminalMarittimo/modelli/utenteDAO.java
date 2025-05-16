@@ -12,7 +12,7 @@ import java.util.List;
 import com.example.terminalMarittimo.classiEntita.utente;
 
 public class utenteDAO {
-    private final String url = "jdbc:mysql://localhost:3306/terminal_marittimo";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 
@@ -21,11 +21,11 @@ public class utenteDAO {
     }
 
     // Inserimento utente
-    public void inserisci(String username, String passwordVal) {
-        String sql = "INSERT INTO utente (username, password) VALUES (?, ?)";
+    public void inserisci(String username, String ruolo) {
+        String sql = "INSERT INTO utenti (username, ruolo) VALUES (?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
-            stmt.setString(2, passwordVal);
+            stmt.setString(2, ruolo);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,13 +35,13 @@ public class utenteDAO {
     // Visualizzazione utenti
     public List<utente> visualizza() {
         List<utente> lista = new ArrayList<>();
-        String sql = "SELECT * FROM utente";
+        String sql = "SELECT * FROM utenti";
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 utente u = new utente(
                     rs.getInt("ID"),
                     rs.getString("username"),
-                    rs.getString("password")
+                    rs.getString("ruolo")
                 );
                 lista.add(u);
             }
@@ -53,7 +53,7 @@ public class utenteDAO {
 
     // Eliminazione utente
     public void cancella(int ID) {
-        String sql = "DELETE FROM utente WHERE ID = ?";
+        String sql = "DELETE FROM utenti WHERE ID = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, ID);
             stmt.executeUpdate();

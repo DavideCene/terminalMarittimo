@@ -12,7 +12,7 @@ import java.util.List;
 import com.example.terminalMarittimo.classiEntita.fornitore;
 
 public class fornitoreDAO {
-    private final String url = "jdbc:mysql://localhost:3306/terminal_marittimo";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 
@@ -22,13 +22,13 @@ public class fornitoreDAO {
 
     // Metodo per inserire un fornitore
     public void inserisci(String nome, String cognome, String email, String telefono, String password) {
-        String sql = "INSERT INTO fornitore (nome, cognome, email, telefono, password) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO fornitore (nome, cognome, password, tel, mail) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, nome);
             stmt.setString(2, cognome);
-            stmt.setString(3, email);
+            stmt.setString(5, email);
             stmt.setString(4, telefono);
-            stmt.setString(5, password);
+            stmt.setString(3, password);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,9 +45,9 @@ public class fornitoreDAO {
                     rs.getInt("ID"),
                     rs.getString("nome"),
                     rs.getString("cognome"),
-                    rs.getString("email"),
-                    rs.getString("telefono"),
-                    rs.getString("password")
+                    rs.getString("password"),
+                    rs.getString("tel"),
+                    rs.getString("mail")
                 );
                 lista.add(f);
             }
@@ -71,7 +71,7 @@ public class fornitoreDAO {
     public int getIDLogin(String username, String pass) {
         try (Connection conn = DriverManager.getConnection(url, user,password)) 
         {
-            String sql = "SELECT ID FROM fornitore WHERE password = ? AND email = ?";
+            String sql = "SELECT ID FROM fornitore WHERE password = ? AND mail = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, pass);
             stmt.setString(2, username);

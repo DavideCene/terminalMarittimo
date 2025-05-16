@@ -13,7 +13,7 @@ import com.example.terminalMarittimo.classiEntita.buono;
 import com.example.terminalMarittimo.classiEntita.polizza;
 
 public class buonoDAO {
-    private final String url = "jdbc:mysql://localhost:3306/terminal_marittimo";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 
@@ -23,7 +23,7 @@ public class buonoDAO {
 
     // Inserimento buono
     public void inserisci(String data, double peso, int polizzaID) {
-        String sql = "INSERT INTO buono (data, peso, polizza_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO buono (data, peso, polizza) VALUES (?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, data);
             stmt.setDouble(2, peso);
@@ -37,13 +37,13 @@ public class buonoDAO {
     // Visualizzazione buoni
     public List<buono> visualizza() {
         List<buono> lista = new ArrayList<>();
-        String sql = "SELECT b.*, p.id as polizza_id, p.data as polizza_data, p.merce, p.peso as polizza_peso " +
+        String sql = "SELECT b.*, p.ID as polizza_ID, p.data as polizza_data, p.merce, p.peso as polizza_peso " +
                      "FROM buono b " +
-                     "JOIN polizza p ON b.polizza_id = p.id";
+                     "JOIN polizza p ON b.polizza = p.ID";
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 polizza p = new polizza(
-                    rs.getInt("polizza_id"),
+                    rs.getInt("polizza"),
                     null, // cliente (non caricato qui)
                     rs.getString("polizza_data"),
                     rs.getString("merce"),

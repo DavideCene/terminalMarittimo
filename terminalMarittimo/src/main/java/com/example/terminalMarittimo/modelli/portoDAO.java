@@ -12,7 +12,7 @@ import java.util.List;
 import com.example.terminalMarittimo.classiEntita.porto;
 
 public class portoDAO {
-    private final String url = "jdbc:mysql://localhost:3306/terminal_marittimo";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 
