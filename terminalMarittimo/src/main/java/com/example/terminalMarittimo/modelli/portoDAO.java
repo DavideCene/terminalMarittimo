@@ -41,9 +41,9 @@ public class portoDAO {
             while (rs.next()) {
                 porto p = new porto(
                     rs.getInt("ID"),
+                    rs.getString("nazione"),
                     rs.getString("nome"),
-                    rs.getString("rotta"),
-                    rs.getString("nazione")
+                    rs.getString("rotta")      
                 );
                 lista.add(p);
             }

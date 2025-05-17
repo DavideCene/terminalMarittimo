@@ -1,5 +1,6 @@
 package com.example.terminalMarittimo.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,7 @@ import com.example.terminalMarittimo.modelli.portoDAO;
 import com.example.terminalMarittimo.modelli.ritiroDAO;
 import com.example.terminalMarittimo.modelli.utenteDAO;
 import com.example.terminalMarittimo.modelli.viaggioDAO;
-
+@CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("/inserisci")
 
@@ -82,8 +83,8 @@ public class inserisci {
 
     viaggioDAO viaggio = new viaggioDAO();
     @GetMapping("/viaggio")
-    public String inserisciViaggio(@RequestParam String dataArrivo,@RequestParam String dataPartenza,@RequestParam int fornitoreID,@RequestParam int naveID,@RequestParam int portoArrivoID,@RequestParam int portoPartenzaID) {
-        viaggio.inserisci(dataArrivo, dataPartenza, fornitoreID, naveID, portoArrivoID, portoPartenzaID);
+    public String inserisciViaggio(@RequestParam String dataArrivo,@RequestParam String dataPartenza,@RequestParam int naveID,@RequestParam int portoArrivoID,@RequestParam int portoPartenzaID) {
+        viaggio.inserisci(dataArrivo, dataPartenza, naveID, portoArrivoID, portoPartenzaID);
         return "Viaggio inserito!";
     }
 

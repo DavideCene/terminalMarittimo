@@ -7,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-import com.example.terminalMarittimo.classiEntita.fornitore;
 import com.example.terminalMarittimo.classiEntita.nave;
 import com.example.terminalMarittimo.classiEntita.porto;
 import com.example.terminalMarittimo.classiEntita.viaggio;
@@ -24,17 +22,15 @@ public class viaggioDAO {
     }
 
     // Inserimento viaggio
-    public void inserisci(String dataArrivo, String dataPartenza,
-                          int fornitoreID, int naveID, int portoArrivoID, int portoPartenzaID) {
-        String sql = "INSERT INTO viaggio (fornitore, porto_partenza, porto_arrivo, data_arrivo, data_partenza, nave) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
+    public void inserisci(String dataArrivo, String dataPartenza,int naveID, int portoArrivoID, int portoPartenzaID) {
+        String sql = "INSERT INTO viaggio (porto_partenza, porto_arrivo, data_arrivo, data_partenza, nave) " +
+                     "VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(4, dataArrivo);
-            stmt.setString(5, dataPartenza);
-            stmt.setInt(1, fornitoreID);
-            stmt.setInt(6, naveID);
-            stmt.setInt(3, portoArrivoID);
-            stmt.setInt(2, portoPartenzaID);
+            stmt.setString(3, dataArrivo);
+            stmt.setString(4, dataPartenza);
+            stmt.setInt(5, naveID);
+            stmt.setInt(2, portoArrivoID);
+            stmt.setInt(1, portoPartenzaID);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,62 +38,63 @@ public class viaggioDAO {
     }
 
     // Visualizzazione viaggi
-    public List<viaggio> visualizza() {
-        List<viaggio> lista = new ArrayList<>();
-        String sql = "SELECT v.*, f.ID AS fornitore_id, f.nome AS fornitore_nome, f.cognome, f.mail, f.tel, f.password, " +
-                     "n.ID AS nave_id, n.nome AS nave_nome, n.tipo, " +
-                     "pa.ID AS porto_arrivo_id, pa.nome AS porto_arrivo_nome, pa.rotta, pa.nazione, " +
-                     "pp.ID AS porto_partenza_id, pp.nome AS porto_partenza_nome, pp.rotta, pp.nazione " +
-                     "FROM viaggio v " +
-                     "JOIN fornitore f ON v.fornitore_id = f.ID " +
-                     "JOIN nave n ON v.nave_id = n.ID " +
-                     "JOIN porto pa ON v.porto_arrivo_id = pa.ID " +
-                     "JOIN porto pp ON v.porto_partenza_id = pp.ID";
-        try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                fornitore f = new fornitore(rs.getInt("fornitore_id"),rs.getString("fornitore_nome"), rs.getString("cognome"),
-                    rs.getString("mail"),
-                    rs.getString("tel"),
-                    rs.getString("password")
-                );
+    public ArrayList<viaggio> visualizza() {
+    ArrayList<viaggio> lista = new ArrayList<>();
 
-                nave n = new nave(
-                    rs.getInt("nave_id"),
-                    rs.getString("tipo"),
-                    rs.getString("nave_nome")
-                );
+    String sql = "SELECT " +
+             "v.ID AS viaggio_id, v.data_arrivo, v.data_partenza, " +
+             "n.ID AS nave_id, n.nome AS nave_nome, n.tipo AS nave_tipo, " +
+             "pa.ID AS porto_arrivo_id, pa.nome AS porto_arrivo_nome, pa.rotta AS porto_arrivo_rotta, pa.nazione AS porto_arrivo_nazione, " +
+             "pp.ID AS porto_partenza_id, pp.nome AS porto_partenza_nome, pp.rotta AS porto_partenza_rotta, pp.nazione AS porto_partenza_nazione " +
+             "FROM viaggio v " +
+             "JOIN nave n ON v.nave = n.ID " +          
+             "JOIN porto pa ON v.porto_arrivo = pa.ID " +
+             "JOIN porto pp ON v.porto_partenza = pp.ID";
 
-                porto portoArrivo = new porto(
-                    rs.getInt("porto_arrivo_id"),
-                    rs.getString("porto_arrivo_nome"),
-                    rs.getString("rotta"),
-                    rs.getString("nazione")
-                );
+    try (
+        Connection conn = getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)
+    ) {
+        while (rs.next()) {
+            nave n = new nave(
+                rs.getInt("nave_id"),
+                rs.getString("nave_nome"),
+                rs.getString("nave_tipo")
+            );
 
-                porto portoPartenza = new porto(
-                    rs.getInt("porto_partenza_id"),
-                    rs.getString("porto_partenza_nome"),
-                    rs.getString("rotta"),
-                    rs.getString("nazione")
-                );
+            porto portoArrivo = new porto(
+                rs.getInt("porto_arrivo_id"),
+                rs.getString("porto_arrivo_nazione"),
+                rs.getString("porto_arrivo_nome"),
+                rs.getString("porto_arrivo_rotta")
+            );
 
-                viaggio v = new viaggio(
-                    rs.getInt("ID"),
-                    rs.getString("data_arrivo"),
-                    rs.getString("data_partenza"),
-                    f,
-                    n,
-                    portoArrivo,
-                    portoPartenza
-                );
+            porto portoPartenza = new porto(
+                rs.getInt("porto_partenza_id"),
+                rs.getString("porto_partenza_nazione"),
+                rs.getString("porto_partenza_nome"),
+                rs.getString("porto_partenza_rotta")
+            );
 
-                lista.add(v);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            viaggio v = new viaggio(
+                rs.getInt("viaggio_id"),
+                rs.getString("data_arrivo"),
+                rs.getString("data_partenza"),
+                n,
+                portoArrivo,
+                portoPartenza
+            );
+
+            lista.add(v);
         }
-        return lista;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return lista;
+}
+
 
     // Cancellazione viaggio
     public void cancella(int ID) {

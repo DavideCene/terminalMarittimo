@@ -11,7 +11,7 @@ import java.util.List;
 import com.example.terminalMarittimo.classiEntita.autista;
 
 public class autistaDAO {
- private final String url = "jdbc:mysql://localhost:3306/terminal";
+    private final String url = "jdbc:mysql://localhost:3306/terminal";
     private final String user = "root";
     private final String password = "";
 

@@ -58,7 +58,7 @@ public class polizzaDAO {
                         rs.getInt("viaggio_id"),
                         rs.getString("data_arrivo"),
                         rs.getString("data_partenza"),
-                        null, null, null, null
+                        null, null, null
                 );
 
                 polizza p = new polizza(
