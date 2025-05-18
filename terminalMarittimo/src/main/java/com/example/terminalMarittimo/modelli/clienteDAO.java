@@ -44,12 +44,12 @@ public class clienteDAO {
             while (rs.next()) {
                 cliente c = new cliente(
                     rs.getInt("ID"),
-                    rs.getString("nome"),
                     rs.getString("cognome"),
-                    rs.getString("indirizzo"),
-                    rs.getString("tel"),
                     rs.getString("mail"),
-                    rs.getString("password")
+                    rs.getString("indirizzo"),
+                    rs.getString("nome"),
+                    rs.getString("password"),
+                    rs.getString("tel")
                 );
                 lista.add(c);
             }

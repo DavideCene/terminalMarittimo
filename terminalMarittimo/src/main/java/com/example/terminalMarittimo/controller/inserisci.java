@@ -90,8 +90,8 @@ public class inserisci {
 
     polizzaDAO polizza = new polizzaDAO();
     @GetMapping("/polizza")
-    public String inserisciPolizza(@RequestParam int clienteID,@RequestParam String data,@RequestParam String merce,@RequestParam double peso,@RequestParam int viaggioID) {
-        polizza.inserisci(clienteID, data, merce, peso, viaggioID);
+    public String inserisciPolizza(@RequestParam int clienteID,@RequestParam String data,@RequestParam String merce,@RequestParam double peso,@RequestParam int viaggioID,@RequestParam int fornitoreID) {
+        polizza.inserisci(clienteID, data, merce, peso, viaggioID,fornitoreID);
         return "Polizza inserita!";
     }
 

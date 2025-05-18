@@ -7,14 +7,23 @@ public class polizza {
     private String data;
     private String merce;
     private cliente cliente;
+    private fornitore fornitore;
 
-    public polizza(int ID, cliente cliente, String data, String merce, double peso, viaggio viaggio) {
+    public fornitore getFornitore() {
+        return fornitore;
+    }
+    public void setFornitore(fornitore fornitore) {
+        this.fornitore = fornitore;
+    }
+    public polizza(int ID, cliente cliente, String data, String merce, double peso, viaggio viaggio, fornitore fornitore)
+    {
         this.ID = ID;
         this.cliente = cliente;
         this.data = data;
         this.merce = merce;
         this.peso = peso;
         this.viaggio = viaggio;
+        this.fornitore = fornitore;
     }
     public int getID() {
         return ID;

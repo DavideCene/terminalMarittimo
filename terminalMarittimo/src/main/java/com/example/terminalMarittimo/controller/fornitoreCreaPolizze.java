@@ -14,11 +14,10 @@ import com.example.terminalMarittimo.modelli.polizzaDAO;
 public class fornitoreCreaPolizze 
 {
     private final polizzaDAO dao = new polizzaDAO();
-    private String merce;
 
     @GetMapping("/inserisci")
-    public String inserisci(@RequestParam int idViaggio, @RequestParam String data, @RequestParam int idCliente, @RequestParam float peso) {
-        dao.inserisci(idCliente, data, merce, peso, idViaggio);
+    public String inserisci(@RequestParam int idViaggio, @RequestParam String data, @RequestParam int idCliente, @RequestParam float peso, @RequestParam String merce,@RequestParam int idFornitore) {
+        dao.inserisci(idCliente, data, merce, peso, idViaggio,idFornitore);
         return "OK";
     }
 

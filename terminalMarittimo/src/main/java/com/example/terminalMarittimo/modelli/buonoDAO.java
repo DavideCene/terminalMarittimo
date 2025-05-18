@@ -43,12 +43,13 @@ public class buonoDAO {
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 polizza p = new polizza(
-                    rs.getInt("polizza"),
-                    null, // cliente (non caricato qui)
+                    rs.getInt("polizza_ID"),
+                    null, 
                     rs.getString("polizza_data"),
                     rs.getString("merce"),
                     rs.getDouble("polizza_peso"),
-                    null  // viaggio (non caricato qui)
+                    null,
+                    null
                 );
 
                 buono b = new buono(
