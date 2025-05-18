@@ -39,16 +39,16 @@ public class elimina {
 
     clienteDAO cliente = new clienteDAO();
     @GetMapping("/cliente")
-    public String eliminaCliente(@RequestParam int ID) {
-        cliente.cancella(ID);
-        return "Cliente con ID " + ID + " eliminato!";
+    public String eliminaCliente(@RequestParam int id) {
+        cliente.cancella(id);
+        return "Cliente con ID " + id + " eliminato!";
     }
 
     fornitoreDAO fornitore = new fornitoreDAO();
     @GetMapping("/fornitore")
-    public String eliminaFornitore(@RequestParam int ID) {
-        fornitore.cancella(ID);
-        return "Fornitore con ID " + ID + " eliminato!";
+    public String eliminaFornitore(@RequestParam int id) {
+        fornitore.cancella(id);
+        return "Fornitore con ID " + id + " eliminato!";
     }
 
     naveDAO nave = new naveDAO();
@@ -74,9 +74,9 @@ public class elimina {
 
     ritiroDAO ritiro = new ritiroDAO();
     @GetMapping("/ritiro")
-    public String eliminaRitiro(@RequestParam int ID) {
-        ritiro.cancella(ID);
-        return "Ritiro con ID " + ID + " eliminato!";
+    public String eliminaRitiro(@RequestParam int id) {
+        ritiro.cancella(id);
+        return "Ritiro con ID " + id + " eliminato!";
     }
 
     viaggioDAO viaggio = new viaggioDAO();

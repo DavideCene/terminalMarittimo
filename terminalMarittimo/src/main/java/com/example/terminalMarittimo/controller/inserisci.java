@@ -41,15 +41,15 @@ public class inserisci {
 
     clienteDAO cliente = new clienteDAO();
     @GetMapping("/cliente")
-    public String inserisciCliente(@RequestParam String nome, @RequestParam String cognome,@RequestParam String email, @RequestParam String telefono,@RequestParam String password, @RequestParam String indirizzo) {
-        cliente.inserisci(nome, cognome, email, telefono, password, indirizzo);
+    public String inserisciCliente(@RequestParam String nome, @RequestParam String cognome,@RequestParam String mail, @RequestParam String tel,@RequestParam String password, @RequestParam String indirizzo) {
+        cliente.inserisci(nome, cognome, mail, tel, password, indirizzo);
         return "Cliente inserito!";
     }
 
     fornitoreDAO fornitore = new fornitoreDAO();
     @GetMapping("/fornitore")
-    public String inserisciFornitore(@RequestParam String nome, @RequestParam String cognome,@RequestParam String email, @RequestParam String telefono, @RequestParam String password) {
-        fornitore.inserisci(nome, cognome, email, telefono, password);
+    public String inserisciFornitore(@RequestParam String nome, @RequestParam String cognome,@RequestParam String mail, @RequestParam String tel, @RequestParam String password) {
+        fornitore.inserisci(nome, cognome, mail, tel, password);
         return "Fornitore inserito!";
     }
 
@@ -76,8 +76,8 @@ public class inserisci {
 
     ritiroDAO ritiro = new ritiroDAO();
     @GetMapping("/ritiro")
-    public String inserisciRitiro(@RequestParam String targa,@RequestParam int autistaID,@RequestParam double peso,@RequestParam String data) {
-        ritiro.inserisci(targa, autistaID, peso, data);
+    public String inserisciRitiro(@RequestParam String targa,@RequestParam int autista,@RequestParam double peso,@RequestParam String data) {
+        ritiro.inserisci(targa, autista, peso, data);
         return "Ritiro inserito!";
     }
 

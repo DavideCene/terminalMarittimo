@@ -9,6 +9,10 @@
     function gestioneCamion() {
       window.location.href = "gestioneCamion.html";
     }
+    function gestioneConsegna()
+    {
+      window.location.href = "gestioneConsegna.html";
+    }
     function logout() 
     {
         sessionStorage.removeItem("utente");
@@ -32,6 +36,7 @@
         <p class="card-text mb-4">Scegli un'opzione per iniziare:</p>
         <div class="d-grid gap-3">
           <button class="btn btn-success btn-lg" onclick="gestioneCamion()">Gestione Camion</button>
+          <button class="btn btn-success btn-lg" onclick="gestioneConsegna()">Gestione consegna</button>
           <button class="btn btn-secondary btn-lg" onclick="logout()">Logout</button>
         </div>
       </div>

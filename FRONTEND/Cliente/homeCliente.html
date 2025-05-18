@@ -10,11 +10,6 @@
       window.location.href = "gestioneBuono.html";
     }
 
-    function gestioneAutisti()
-    {
-      window.location.href = "gestioneAutisti.html";
-    }
-
     function logout() 
     {
         sessionStorage.removeItem("utente");
@@ -40,7 +35,6 @@
         <p class="card-text mb-4">Seleziona una delle seguenti operazioni:</p>
         <div class="d-grid gap-3">
           <button class="btn btn-primary btn-lg" onclick="gestioneBuono()">Gestione buono</button>
-          <button class="btn btn-primary btn-lg" onclick="gestioneAutisti()">Gestione autisti</button>
           <button class="btn btn-danger btn-lg" onclick="logout()">Logout</button>
         </div>
       </div>

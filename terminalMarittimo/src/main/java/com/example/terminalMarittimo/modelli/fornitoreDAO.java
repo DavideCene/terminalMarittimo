@@ -45,9 +45,9 @@ public class fornitoreDAO {
                     rs.getInt("ID"),
                     rs.getString("nome"),
                     rs.getString("cognome"),
-                    rs.getString("password"),
+                    rs.getString("mail"),
                     rs.getString("tel"),
-                    rs.getString("mail")
+                    rs.getString("password")
                 );
                 lista.add(f);
             }

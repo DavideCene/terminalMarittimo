@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestione Autisti</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function caricamento() {
+      caricaAutisti();
+    }
+
+    function tornaIndietro() {
+      window.location.href = "homeAdmin.html";
+    }
+
+    function caricaAutisti() {
+      fetch("http://localhost:8080/visualizza/autista")
+        .then(res => {
+          if (!res.ok) throw new Error("Errore HTTP: " + res.status);
+          return res.json();
+        })
+        .then(autisti => {
+          const tabella = document.getElementById("tabellaAutisti");
+          tabella.innerHTML = "";
+
+          const thead = document.createElement("thead");
+          thead.innerHTML = `
+            <tr>
+              <th>ID</th><th>Nome</th><th>Username</th><th>Password</th><th>Elimina</th>
+            </tr>`;
+          tabella.appendChild(thead);
+
+          const tbody = document.createElement("tbody");
+
+          autisti.forEach(a => {
+            const riga = document.createElement("tr");
+            riga.innerHTML = `
+              <td>${a.id}</td>
+              <td>${a.nome}</td>
+              <td>${a.username}</td>
+              <td>${a.password}</td>`;
+
+            const tdElimina = document.createElement("td");
+            const btn = document.createElement("button");
+            btn.className = "btn btn-danger btn-sm";
+            btn.textContent = "Elimina";
+            btn.onclick = () => eliminaAutista(a.id);
+            tdElimina.appendChild(btn);
+            riga.appendChild(tdElimina);
+
+            tbody.appendChild(riga);
+          });
+
+          tabella.appendChild(tbody);
+        });
+    }
+
+    function inserisciAutista(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (!nome || !username || !password) {
+        alert("Compila tutti i campi.");
+        return;
+      }
+
+      fetch(`http://localhost:8080/inserisci/autista?nome=${nome}&username=${username}&password=${password}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Errore HTTP: " + res.status);
+          return res.text();
+        })
+        .then(() => {
+          alert("Autista inserito correttamente.");
+          document.getElementById("formAutista").reset();
+          caricaAutisti();
+        });
+    }
+
+    function eliminaAutista(id) {
+      fetch(`http://localhost:8080/elimina/autista?id=${id}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Errore HTTP: " + res.status);
+          return res.text();
+        })
+        .then(() => {
+          alert("Autista eliminato.");
+          caricaAutisti();
+        });
+    }
+  </script>
+</head>
+
+<body onload="caricamento()" class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+      <span class="navbar-brand">Gestione Autisti</span>
+      <button class="btn btn-outline-light" onclick="tornaIndietro()">Torna alla Home</button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="card shadow mb-5">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Inserisci Nuovo Autista</h5>
+      </div>
+      <div class="card-body">
+        <form id="formAutista" class="row g-3" onsubmit="inserisciAutista(event)">
+          <div class="col-md-4">
+            <label class="form-label">Nome</label>
+            <input type="text" id="nome" class="form-control" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Username</label>
+            <input type="text" id="username" class="form-control" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Password</label>
+            <input type="password" id="password" class="form-control" required>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-success">Inserisci</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <h4 class="mb-3">Lista Autisti</h4>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle text-center" id="tabellaAutisti"></table>
+    </div>
+
+  </div>
+
+</body>
+</html>
