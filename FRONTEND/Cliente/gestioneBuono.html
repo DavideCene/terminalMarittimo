@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestione Buoni di Consegna</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function caricamento() {
+      caricaPolizze();
+      caricaBuoni();
+    }
+
+    function tornaIndietro() {
+      window.location.href = "homeCliente.html";
+    }
+
+    function caricaPolizze() {
+      fetch("http://localhost:8080/visualizza/polizza")
+        .then(res => {
+          if (!res.ok) throw new Error("Errore HTTP: " + res.status);
+          return res.json();
+        })
+        .then(polizze => {
+          const select = document.getElementById("polizza");
+          select.innerHTML = "";
+          polizze.forEach(p => {
+            const option = document.createElement("option");
+            option.value = p.id;
+            option.textContent = `#${p.id} - ${p.viaggio.nave.nome} (${p.merce})`;
+            select.appendChild(option);
+          });
+        });
+    }
+
+    function inserisciBuono(event) {
+      event.preventDefault();
+
+      const idPolizza = document.getElementById("polizza").value;
+      const data = document.getElementById("data").value;
+      const peso = document.getElementById("peso").value;
+
+      if (!idPolizza || !data || !peso) {
+        alert("Compila tutti i campi.");
+        return;
+      }
+
+      if (isNaN(peso) || parseFloat(peso) <= 0) {
+        alert("Il peso deve essere maggiore di 0.");
+        return;
+      }
+
+      fetch(`http://localhost:8080/gestioneBuoni/inserisci?idPolizza=${idPolizza}&data=${data}&peso=${peso}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Errore HTTP: " + res.status);
+          return res.text();
+        })
+        .then(() => {
+          alert("Buono inserito correttamente.");
+          document.getElementById("formBuono").reset();
+          caricaBuoni();
+        });
+    }
+
+    function caricaBuoni() {
+      fetch("http://localhost:8080/visualizza/buono")
+        .then(res => {
+          if (!res.ok) throw new Error("Errore HTTP: " + res.status);
+          return res.json();
+        })
+        .then(buoni => {
+          const tabella = document.getElementById("tabellaBuoni");
+          tabella.innerHTML = "";
+
+          const thead = document.createElement("thead");
+          thead.innerHTML = `
+            <tr>
+              <th>ID</th><th>Data</th><th>Polizza</th><th>Peso (kg)</th><th>Elimina</th>
+            </tr>`;
+          tabella.appendChild(thead);
+
+          const tbody = document.createElement("tbody");
+
+          buoni.forEach(b => {
+            const riga = document.createElement("tr");
+            riga.innerHTML = `
+              <td>${b.id}</td>
+              <td>${b.data}</td>
+              <td>${b.polizza.merce} - ${b.polizza.viaggio.nave.nome}</td>
+              <td>${b.peso}</td>`;
+
+            const tdElimina = document.createElement("td");
+            const btn = document.createElement("button");
+            btn.className = "btn btn-danger btn-sm";
+            btn.textContent = "Elimina";
+            btn.onclick = () => eliminaBuono(b.id);
+            tdElimina.appendChild(btn);
+            riga.appendChild(tdElimina);
+
+            tbody.appendChild(riga);
+          });
+
+          tabella.appendChild(tbody);
+        });
+    }
+
+    function eliminaBuono(id) {
+      fetch(`http://localhost:8080/gestioneBuoni/elimina?id=${id}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Errore HTTP: " + res.status);
+          return res.text();
+        })
+        .then(() => {
+          alert("Buono eliminato.");
+          caricaBuoni();
+        });
+    }
+  </script>
+</head>
+
+<body onload="caricamento()" class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+      <span class="navbar-brand">Gestione Buoni di Consegna</span>
+      <button class="btn btn-outline-light" onclick="tornaIndietro()">Torna alla Home</button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="card shadow mb-5">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Inserisci Nuovo Buono</h5>
+      </div>
+      <div class="card-body">
+        <form id="formBuono" class="row g-3" onsubmit="inserisciBuono(event)">
+          <div class="col-md-6">
+            <label class="form-label">Polizza</label>
+            <select id="polizza" class="form-select" required></select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Data</label>
+            <input type="date" id="data" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Peso (kg)</label>
+            <input type="number" id="peso" class="form-control" min="0" required>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-success">Inserisci</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <h4 class="mb-3">Lista Buoni</h4>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle text-center" id="tabellaBuoni"></table>
+    </div>
+
+  </div>
+
+</body>
+</html>

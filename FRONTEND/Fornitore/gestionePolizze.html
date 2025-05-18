@@ -78,8 +78,8 @@
                     polizze.forEach(p => {
                         const riga = document.createElement("tr");
                         riga.innerHTML = `
-                            <td>${p.viaggio.nave.nome} (${p.viaggio.dt_partenza} => ${p.viaggio.dt_arrivo})</td>
-                            <td>${p.fornitore.nome} ${p.fornitore.cognome} (${p.fornitore.nomeAzienda})</td>
+                            <td>${p.viaggio.nave.nome} (${p.viaggio.dataPartenza}  ${p.viaggio.dataArrivo})</td>
+                            <td>${p.fornitore.nome} ${p.fornitore.cognome} (${p.fornitore.email})</td>
                             <td>${p.cliente.nome} ${p.cliente.cognome} (${p.cliente.email})</td>
                             <td>${p.merce}</td>
                             <td>${p.peso}</td>

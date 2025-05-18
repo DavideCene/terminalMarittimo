@@ -36,8 +36,8 @@ public class camionDAO {
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 camion c = new camion(
-                    rs.getString("targa"),
-                    rs.getString("modello")
+                    rs.getString("modello"),
+                    rs.getString("targa")
                 );
                 lista.add(c);
             }

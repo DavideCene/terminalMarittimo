@@ -55,8 +55,8 @@ public class inserisci {
 
     naveDAO nave = new naveDAO();
     @GetMapping("/nave")
-    public String inserisciNave(@RequestParam String tipologia, @RequestParam String nome) {
-        nave.inserisci(tipologia, nome);
+    public String inserisciNave(@RequestParam String tipo, @RequestParam String nome) {
+        nave.inserisci(tipo, nome);
         return "Nave inserita!";
     }
 

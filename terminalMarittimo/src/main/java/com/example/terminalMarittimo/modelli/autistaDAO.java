@@ -39,8 +39,8 @@ public class autistaDAO {
                 autista a = new autista(
                     rs.getInt("ID"),
                     rs.getString("nome"),
-                    rs.getString("username"),
-                    rs.getString("password")
+                    rs.getString("password"),
+                    rs.getString("username")
                 );
                 lista.add(a);
             }

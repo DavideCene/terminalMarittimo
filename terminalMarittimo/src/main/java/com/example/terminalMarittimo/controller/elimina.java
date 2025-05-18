@@ -53,16 +53,16 @@ public class elimina {
 
     naveDAO nave = new naveDAO();
     @GetMapping("/nave")
-    public String eliminaNave(@RequestParam int ID) {
-        nave.cancella(ID);
-        return "Nave con ID " + ID + " eliminata!";
+    public String eliminaNave(@RequestParam int id) {
+        nave.cancella(id);
+        return "Nave con ID " + id + " eliminata!";
     }
 
     portoDAO porto = new portoDAO();
     @GetMapping("/porto")
-    public String eliminaPorto(@RequestParam int ID) {
-        porto.cancella(ID);
-        return "Porto con ID " + ID + " eliminato!";
+    public String eliminaPorto(@RequestParam int id) {
+        porto.cancella(id);
+        return "Porto con ID " + id + " eliminato!";
     }
 
     utenteDAO utenteDAO = new utenteDAO();
